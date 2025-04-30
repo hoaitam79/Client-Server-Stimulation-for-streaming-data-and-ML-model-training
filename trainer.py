@@ -1,5 +1,4 @@
 import pyspark
-
 from pyspark.context import SparkContext
 from pyspark.streaming.context import StreamingContext
 from pyspark.sql.context import SQLContext
