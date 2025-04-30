@@ -5,12 +5,10 @@ import json
 import numpy as np
 import sys
 
-
 def test(TCP_IP, TCP_PORT):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((TCP_IP, TCP_PORT))
     print(f"[Receiver] Connected to {TCP_IP}:{TCP_PORT}")
-
     buffer = ""
     try:
         while True:
@@ -37,19 +35,13 @@ def test(TCP_IP, TCP_PORT):
         s.close()
         print("[Receiver] Socket closed.")
 
-
-
-
 if __name__ == "__main__":
     spark_config = SparkConfig()
-
     if len(sys.argv) < 2:
         print("Usage: python main.py [model_name]")
         print("Available models: svm, random_forest, logistic_regression")
         sys.exit(1)
-
     model_name = sys.argv[1]
-
     if model_name == "svm":
         model = SVM(loss="hinge", penalty="l2", max_iter=100, tol=1e-4)
     elif model_name == "random_forest":
@@ -60,7 +52,6 @@ if __name__ == "__main__":
         print(f"Invalid model name: {model_name}")
         print("Available models: svm, random_forest, logistic_regression")
         sys.exit(1)
-
     trainer = Trainer(model, "train", spark_config)
     trainer.train()
     # trainer.predict()
