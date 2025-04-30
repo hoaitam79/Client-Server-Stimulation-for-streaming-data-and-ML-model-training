@@ -66,7 +66,6 @@ class Dataset:
                         payload[batch_idx][f'feature-{feature_idx}'] = images[batch_idx][feature_idx]
                     payload[batch_idx]['label'] = labels[batch_idx]
 
-                # convert the payload to string
                 payload = (json.dumps(payload) + "\n").encode()
                 try:
                     tcp_connection.send(payload)
@@ -88,7 +87,6 @@ class Dataset:
         print(f"Waiting for connection on port {TCP_PORT}...")
         connection, address = s.accept()
         print(f"Connected to {address}")
-
         return connection, address
 
     def streamCIFARDataset(self, tcp_connection, folder, batch_size):
@@ -105,7 +103,6 @@ class Dataset:
 
 if __name__ == '__main__':
     args = parser.parse_args()
-
     data_folder = args.folder
     batch_size = args.batch_size
     endless = args.endless
