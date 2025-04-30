@@ -21,7 +21,6 @@ class DataLoader:
                  sparkStreamingContext: StreamingContext, 
                  sqlContext: SQLContext,
                  sparkConf: SparkConfig) -> None:
-        
         self.sc = sparkContext
         self.ssc = sparkStreamingContext
         self.sparkConf = sparkConf
@@ -35,17 +34,11 @@ class DataLoader:
         raw_stream = self.stream
         parsed_stream = raw_stream.map(lambda line: json.loads(line))
         parsed_stream = parsed_stream.flatMap(lambda x: x.values())
-
         parsed_stream = parsed_stream.map(
                 lambda x: [x[f"feature-{i}"] for i in range(3072)] + [x["label"]]
         )
         pixels = parsed_stream.map(
             lambda x: [np.array(x[:-1], dtype=np.uint8).reshape(3, 32, 32).transpose(1, 2, 0), x[-1]]
         )
-
         pixels = parsed_stream
         return pixels
-
-
-
-
