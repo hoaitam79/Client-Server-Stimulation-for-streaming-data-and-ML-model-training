@@ -14,13 +14,13 @@ def test(TCP_IP, TCP_PORT):
     buffer = ""
     try:
         while True:
-            data = s.recv(4096).decode()  # nhận một phần
+            data = s.recv(4096).decode()
             if not data:
                 break
 
             buffer += data
             while "\n" in buffer:
-                line, buffer = buffer.split("\n", 1)  # tách dòng JSON
+                line, buffer = buffer.split("\n", 1) 
                 try:
                     payload = json.loads(line)
                     print(f"[Receiver] Received batch of {len(payload)} samples")
